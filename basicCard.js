@@ -1,21 +1,25 @@
-// Create a new GitHub repository, 
-// named Flashcard-Generator or something similar.
-// Clone this to your local drive.
-// Create a BasicCard constructor. 
-// It should accept front and back arguments.
-// Create a ClozeCard constructor. 
-// It should accept text and cloze arguments.
-
-console.log("Hello admin")
-const weather = require('weather-js');
+console.log("Hello basicCard")
 const fs = require("fs");
 
 class BasicCard {
-    constructor(userName, location) {
-        this.userName = userName;
-        this.location = location;
+    constructor(front, back) {
+        this.front = front;
+        this.back = back;
     }
+    addCards(add) {
+        fs.readFile('./data.json', 'utf8', function(error, data) {
+            if (error) throw error;
 
-}
+            var arr = JSON.parse(data);
 
-module.exports = WeatherAdmin;
+            arr.cards.push(add);
+
+            fs.writeFile('./data.json', JSON.stringify(arr), 'utf8', function(err) {
+                if (err) throw err;
+                console.log("Process completed!!!");
+            });
+        });
+    }
+};
+
+module.exports = BasicCard;
